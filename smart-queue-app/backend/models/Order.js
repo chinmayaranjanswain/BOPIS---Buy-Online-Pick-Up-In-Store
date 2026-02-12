@@ -1,14 +1,10 @@
 const mongoose = require('mongoose');
 
-const orderSchema = new mongoose.Schema({
-    customerName: {
-        type: String,
-        required: true,
-    },
-    customerEmail: {
-        type: String,
-        required: true,
-    },
+const orderSchema = mongoose.Schema({
+    // We will save the customer's name directly for simplicity
+    customerName: { type: String, required: true },
+    customerEmail: { type: String, required: true },
+
     orderItems: [
         {
             name: { type: String, required: true },
@@ -25,19 +21,23 @@ const orderSchema = new mongoose.Schema({
     totalPrice: {
         type: Number,
         required: true,
+        default: 0.0,
     },
     isPaid: {
         type: Boolean,
         required: true,
         default: false,
     },
-    isDelivered: { // In your case, this means "Picked Up"
+    isDelivered: { // In your project, this means "Picked Up"
         type: Boolean,
         required: true,
         default: false,
     },
+    deliveredAt: {
+        type: Date,
+    },
 }, {
-    timestamps: true
+    timestamps: true,
 });
 
 const Order = mongoose.model('Order', orderSchema);
